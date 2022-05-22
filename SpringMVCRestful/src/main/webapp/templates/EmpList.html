@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>员工信息列表</title>
+  <!--引入Vue.js-->
+  <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+</head>
+<body>
+  <table id="dataTable" border="1" cellpadding="0" cellspacing="0" align="center" style="text-align: center;width: 600px;height: 300px">
+    <tr>
+      <th colspan="5">EmpInfo</th>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>lastName</td>
+      <td>email</td>
+      <td>gender</td>
+      <td>option(<a th:href="@{/toAddEmp}">添加</a>)</td>
+    </tr>
+    <tr th:each="emp : ${emps}">
+      <td th:text="${emp.id}"></td>
+      <td th:text="${emp.lastName}"></td>
+      <td th:text="${emp.email}"></td>
+      <td th:text="${emp.gender}"></td>
+      <td>
+        <!--delete方式:通过超链接控制表单form的提交-->
+        <a th:href="@{/emp/}+${emp.id}" class="delete" @click="deleteEmp">删除</a>
+        <a th:href="@{/emp/}+${emp.id}">修改</a>
+      </td>
+    </tr>
+  </table>
+
+  <!-- 作用：通过超链接控制表单的提交，将post请求转换为delete请求 -->
+  <form method="post" id="delete_form">
+    <!-- HiddenHttpMethodFilter要求：必须传输_method请求参数，并且值为最终的请求方式 -->
+    <input type="hidden" name="_method" value="delete">
+  </form>
+
+  <script type="text/javascript">
+    new Vue({
+      el:"#dataTable",
+      methods:{
+        //event表示当前事件
+        deleteEmp:function(event){
+          //通过id获取表单
+          var delete_form = document.getElementById("delete_form");
+          //将触发事件的超链接的href属性赋值给表单的action
+          delete_form.action = event.target.href;
+          //提交表单
+          delete_form.submit();
+          //阻止超链接的默认提交行为
+          event.preventDefault();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

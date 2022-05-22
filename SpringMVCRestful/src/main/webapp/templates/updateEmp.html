@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改员工</title>
+</head>
+<body>
+    <!--修改员工表单-->
+    <form th:action="@{/emp}" method="post">
+        <!--隐藏域-->
+        <input type="hidden" name="_method" value="put">
+        id:<input type="text" name="id" th:value="${emp.id}"><br/>
+        lastName:<input type="text" name="lastName" th:value="${emp.lastName}"><br/>
+        email:<input type="text" name="email" th:value="${emp.email}"><br/>
+        gender:<input type="radio" name="gender" value="1" th:field="${emp.gender}">男
+                 <input type="radio" name="gender" value="0" th:field="${emp.gender}">女<br/>
+        <input type="submit" value="修改员工">
+    </form>
+</body>
+</html>

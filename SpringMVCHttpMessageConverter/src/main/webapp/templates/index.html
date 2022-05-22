@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+<h1>首页</h1>
+
+<form th:action="@{/RequestBody}" method="post">
+    username:<input type="text" name="username"><br>
+    password:<input type="password" name="password"><br>
+    <input type="submit" value="提交"><br>
+</form>
+<hr/>
+<form th:action="@{/RequestEntity}" method="get">
+    username:<input type="text" name="username"><br>
+    password:<input type="password" name="password"><br>
+    <input type="submit" value="提交"><br>
+</form>
+<hr/>
+<a th:href="@{/ResponseBody}">测试@ResponseBody标识方法返回的响应体</a>
+<hr/>
+<a th:href="@{/ResponseBodyJson}">测试@ResponseBody将java对象转化为json格式</a>
+</body>
+<hr/>
+<div id="app">
+    <a th:href="@{/AjaxTest}" @click="testAjax">testAjax</a>
+</div>
+<hr>
+<a th:href="@{/RestController}">测试@RestController</a>
+<hr/>
+<a th:href="@{/FileupAndFileDown}">文件上传和下载</a>
+
+
+
+
+<!--通过vue和axios处理点击事件-->
+<script>
+    const vm = new Vue({
+        el : "#app",
+        methods : {
+            testAjax(event) {
+                axios({
+                    method : "post",
+                    url : event.target.href,
+                    data : {
+                        username : "admin",
+                        password : "123456"
+                    }
+                }).then(response => {
+                    alert(response.data);
+                    console.log(this);
+                });
+                event.preventDefault();
+            }
+        }
+    });
+</script>
+</html>

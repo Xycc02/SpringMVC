@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>首页</h1>
+<a th:href="@{/hello/target1}">通过/target1点击跳转Target页面</a><br/>
+<a th:href="@{/hello/target2}">通过/target2点击跳转Target页面</a>
+<form th:action="@{/hello/target1}" method="post">
+    <input type="submit" value="Post方式">
+</form>
+<form th:action="@{/hello/target1}" method="get">
+    <input type="submit" value="Get方式">
+</form>
+<a th:href="@{/hello/getMappingToTarget}">GetMapping注解</a><br/>
+<a th:href="@{/hello/testParams(username='admin',password = '123456')}">params测试</a><br/>
+<a th:href="@{/hello/testHeaders}">headers测试</a><br/>
+<a th:href="@{/hello/testAnt}">Ant风格路径测试</a><br/>
+<a th:href="@{/hello/testPath/1/admin}">SpringMVC支持路径中带有参数占位符</a>
+</body>
+</html>
